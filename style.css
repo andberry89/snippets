@@ -1,0 +1,15 @@
+@media screen {
+
+    .border {border: 1px solid #000;}
+    #tabMenu {display: flex; flex-direction: row; justify-content: flex-start;}
+    .tab {text-align: center; padding: 15px 40px; cursor: pointer; border-radius: 20px 20px 0 0; background-color: #bbb;}
+    .active {border-bottom: none; background-color: white;}
+    #empty {flex-grow: 100; border-bottom: 1px solid #000;}
+
+    #content {border-top: none;}
+    .file {display: none; padding: 15px 30px;}
+    .open {display: block;}
+    .red {color: red;}
+    .green {color: green;}
+    .blue {color: blue;}
+}
