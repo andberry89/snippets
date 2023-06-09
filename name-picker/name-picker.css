@@ -1,0 +1,10 @@
+@media screen {
+
+    body {background-color: #301934;}
+    #container {display: flex; flex-direction: column; justify-content: center; text-align: center; margin: 0 auto;}
+    #plate {padding: 280px 0; font: 700 48px/1.2 'Verdana', sans-serif; color: #fff;}
+    button {padding: 15px 25px; background-color: #000; color: #fff; border: 1px solid #fff; font-size: 24px; transition: 0.3s;}
+    button:hover {cursor: pointer; background-color: #301934;}
+    #plate.winner {color: yellow;}
+
+}
