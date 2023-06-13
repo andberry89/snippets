@@ -1,0 +1,73 @@
+html {height: 100%;}
+
+body {
+    height: 100%;
+    font: 400 18px/1.2 'Verdana', 'Arial', sans-serif;
+    color: #000;
+    background-color: #fff;
+    text-align: center;
+    background-color: #3a3a3a;
+}
+
+#holder {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    background-color: #fff;
+    width: 80%;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 100px 0;
+}
+
+#radio-buttons {margin-top: 15px;}
+#radio-buttons label {font-size: 16px; margin-right: 25px;}
+
+#converter-form {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {font-size: 30px; margin: 0; padding: 0;}
+h3 {font-size: 18px;}
+
+textarea {
+    margin: 30px auto; 
+    width: 80%; 
+    display: block;
+    font: 400 14px/1 'Courier', monospace;
+    color: #000;
+    padding: 5px;
+}
+
+#urlBox {
+    margin: 20px auto;
+    display: block;
+    width: 80%;
+    height: 2rem;
+    font: 400 14px/1 'Courier', monospace;
+    padding: 2px;
+}
+
+#submitBtn, #copyBtn {
+    padding: 15px 35px; 
+    color: #3a3a3a; 
+    background-color: #fff; 
+    border: 1px solid #3a3a3a; 
+    transition: 0.5s;
+}
+#submitBtn:hover, #copyBtn:hover {
+    color: #fff;
+    background-color: #3a3a3a;
+    cursor: pointer;
+}
+
+#copyBtn:disabled {
+    color: slategray;
+    background-color: lightgray;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
