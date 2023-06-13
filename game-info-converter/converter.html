@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text to HTML Converter</title>
+  <link rel="stylesheet" href="converter.css">
+</head>
+
+<body>
+    <main id="holder">
+
+        <h1>Paste Text Into Box Below</h1>
+
+        <div id="radio-buttons">
+            <input type="radio" id="gameBtn" name="productType" value="Board Game" checked>
+            <label for="gameBtn">Board Game</label>
+            <input type="radio" id="otherBtn" name="productType" value="Other">
+            <label for="otherBtn">Other</label>
+        </div>
+
+        <form id="converter-form">
+
+            <textarea id="textBox" name="textBox" rows="10" cols="50"></textarea>
+            <div id="crosslink">
+                <h3>Enter URL for cross-linking (optional)</h3>
+                <input type="url" name="url" placeholder="https://vaultofmidnight.shop/" id="urlBox"/>
+            </div>
+            <input type="submit" value="Convert" id="submitBtn" />
+
+        </form>
+
+        <textarea id="convertedText" name="convertedText" rows="15" cols="50"></textarea>
+
+        <input type="button" value="Copy to Clipboard" id="copyBtn" />
+
+    </main>
+    <script src="converter.js"></script>
+</body>
+
+</html>
