@@ -28,13 +28,13 @@
 
         if (!btn) { return; }
         else {
-            const crosslink = document.getElementById('crosslink');
+            const linkContainer = document.getElementById('link-container');
             if (btn.id === 'gameBtn') {
-                crosslink.style.opacity = 1;
+                linkContainer.classList.add('active');
             } else {
-                crosslink.style.opacity = 0;
+                linkContainer.classList.remove('active');
             }
-        }
+        } 
 
     }
 
@@ -83,6 +83,25 @@
         return splitText.join('\n');
     }
 
+    function optimizeUrl(url) {
+
+        const optimizedUrl = document.getElementById('optimizedUrl');
+        const idxProducts = url.indexOf('products/');
+        let productName = url.substring(idxProducts + 'products/'.length);
+
+        if(/\?/.test(url)) {
+            const idxExtra = productName.indexOf('?');
+            productName = productName.substring(0, idxExtra);
+        }
+
+        url = 'https://vaultofmidnight.shop/products/' + productName;
+
+        optimizedUrl.innerHTML = '<p><strong>Optimized URL:</strong></p><a href="' + url + '" target="blank">' + url + '</a>';
+        optimizedUrl.style.display = 'block';
+
+        return url;
+    }
+
     function insertUrl(lastIdx, url) {
 
         // use the .includes() method possibly?
@@ -129,7 +148,7 @@
         const players = rePlayers.exec(text)[0].trim();
         const length = reLength.exec(text)[0].trim();
         let lastIdx = splitText.slice(-1).toString().trim();
-        const url = document.getElementById('urlBox').value;
+        let url = document.getElementById('urlBox').value;
 
         // checks to see what the last item of the array is
         // if it's not the Game Length, we want to get rid of it from the array
@@ -137,6 +156,7 @@
         if (lastIdx !== length) { 
 
             if (lastIdx !== '' && url !== '') {
+                url = optimizeUrl(url);
                 lastIdx = insertUrl(lastIdx, url);
             }
 
@@ -192,7 +212,11 @@
                     contents[i] = '<li>' + contents[i] + '</li>';
                 }
             }
-            contents.splice(1, 0, '<ul>');
+            if (len < 20) {
+                contents.splice(1, 0, '<ul>');
+            } else {
+                contents.splice(1,0, '<ul style="columns: 2;">');
+            }
             contents.push('</ul>');
             contents.push('\n<hr />');
         }

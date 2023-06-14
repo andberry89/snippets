@@ -23,9 +23,12 @@
         <form id="converter-form">
 
             <textarea id="textBox" name="textBox" rows="10" cols="50"></textarea>
-            <div id="crosslink">
-                <h3>Enter URL for cross-linking (optional)</h3>
-                <input type="url" name="url" placeholder="https://vaultofmidnight.shop/" id="urlBox"/>
+            <div id="link-container" class="active">
+                <div id="crosslink">
+                    <h3>Enter URL for cross-linking (optional)</h3>
+                    <input type="url" name="url" placeholder="https://vaultofmidnight.shop/" id="urlBox"/>
+                    <div id="optimizedUrl"></div>
+                </div>
             </div>
             <input type="submit" value="Convert" id="submitBtn" />
 
