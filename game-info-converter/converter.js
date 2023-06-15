@@ -38,6 +38,10 @@
 
     }
 
+    function clear() {
+        textBox.value = '';
+    }
+
     function convertText() {
 
         popEmptyLines();
@@ -104,14 +108,15 @@
 
     function insertUrl(lastIdx, url) {
 
-        // use the .includes() method possibly?
-
         let str = '';
 
         const idxCopyOf = lastIdx.indexOf('copy of ');
         const idxReq = lastIdx.indexOf(' is required');
+
         const idxCombined = lastIdx.indexOf('combined with ');
         const idxFor = lastIdx.lastIndexOf(' for');
+
+        const idxAccessory = lastIdx.lastIndexOf(' accessory for ');
 
         if (idxCopyOf > -1) {
 
@@ -132,6 +137,16 @@
             str = str + lastIdx.substring(combinedLen, idxFor);
             str = str + '</a>';
             str = str + lastIdx.substring(idxFor);
+
+        } else if (idxAccessory > -1){
+
+            const accessoryLen = idxAccessory + ' accessory for '.length;
+
+            str = lastIdx.substring(0, accessoryLen);
+            str = str + '<a href="' + url + '" target="_blank">';
+            str = str + lastIdx.substring(accessoryLen);
+            str = str + '</a>';
+
         }
 
         if (str !== '') {
@@ -163,7 +178,11 @@
             splitText.pop(); 
         }
 
-        let str = '\n\n' + '<ul>';
+        if (url === '') {
+            optimizedUrl.style.display = 'none';
+        }
+
+        let str = '<ul>';
         str = str + '\n' + '<li>' + ages + '</li>';
         str = str + '\n' + '<li>' + players + '</li>';
         str = str + '\n' + '<li>' + length + '</li>';
@@ -181,9 +200,11 @@
         }
 
         // addthe PS
-        if (lastIdx !== null && lastIdx !== '') {
+        if (lastIdx !== null && lastIdx !== '' && lastIdx !== length) {
             str = str + '\n\n' + '<p>' + lastIdx + '</p>';
         }
+
+        str = str + '\n\n<hr />\n\n';
 
         return str;
 
@@ -194,6 +215,11 @@
         const contentsIdx = splitText.indexOf(reContents.exec(splitText)[0].trim());
         const len = splitText.length;
         let contents = [];
+
+        // variables to determine if an embedded list is in the contents
+        let idxSecondList = 0;
+        let secondListLen = 0;
+        let formingSecondList = false;
 
         for (let i = contentsIdx + 1; i <= len; i++){
             if (splitText[i] !== '') { contents.push(splitText[i]); }
@@ -206,19 +232,44 @@
         if (contents !== null) {
             const len = contents.length;
             for (let i = 0; i < len; i++) {
+
                 if (i === 0) {
                     contents[i] = '<p><strong>' + contents[i] + '</strong></p>';
                 } else {
+
+                    // if the first character isn't a number or letter, it's the start of an embedded list
+                    if (/[^a-zA-Z0-9]/.test(contents[i][0])) {
+                        formingSecondList = true;
+                        if (idxSecondList === 0) {
+                            idxSecondList = i;
+                        }
+                        contents[i] = (/\w.+/.exec(contents[i])[0]);
+                        secondListLen += 1;
+
+                        // at the end of the embedded list, turn the flag for making a second list off
+                        if (/^\w+/.test(contents[i+1]) || i+1 >= len) {
+                            formingSecondList = false;
+                        }
+                    }
                     contents[i] = '<li>' + contents[i] + '</li>';
+                    
+                    // if we're no longer forming a second list AND there's actually a list to be made, format it
+                    if (formingSecondList === false && secondListLen > 0) {
+                        contents[idxSecondList] = '<ul>\n' + contents[idxSecondList];
+                        contents[i] = contents[i] + '\n</ul>';
+                        idxSecondList = 0;
+                        secondListLen = 0; 
+                    }
                 }
             }
+            // if the contents list is long, split it into two columns
             if (len < 20) {
                 contents.splice(1, 0, '<ul>');
             } else {
                 contents.splice(1,0, '<ul style="columns: 2;">');
             }
+
             contents.push('</ul>');
-            contents.push('\n<hr />');
         }
 
         return contents.join('\n');
@@ -238,7 +289,7 @@
             contents = convertContents();
         }
 
-        return '\n\n' + contents + gameInfo;
+        return '\n\n' + gameInfo + contents;
 
     }
 
@@ -268,6 +319,7 @@
     const htmlBox = document.getElementById('convertedText');
     const submitBtn = document.getElementById('submitBtn');
     const copyBtn = document.getElementById('copyBtn');
+    const clearBtn = document.getElementById('clearBtn');
     const radioBtns = document.getElementById('radio-buttons');
     let text = '';
     let splitText = [];
@@ -284,5 +336,6 @@
     radioBtns.addEventListener('click', checkBtns, false);
     submitBtn.addEventListener('click', convertToHtml, false);
     copyBtn.addEventListener('click', copy, false);
+    clearBtn.addEventListener('click', clear, false);
 
 })();

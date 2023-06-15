@@ -23,6 +23,8 @@
         <form id="converter-form">
 
             <textarea id="textBox" name="textBox" rows="10" cols="50"></textarea>
+            <input type="button" value="Clear Input" id="clearBtn" />
+            <input type="submit" value="Convert" id="submitBtn" />
             <div id="link-container" class="active">
                 <div id="crosslink">
                     <h3>Enter URL for cross-linking (optional)</h3>
@@ -30,13 +32,12 @@
                     <div id="optimizedUrl"></div>
                 </div>
             </div>
-            <input type="submit" value="Convert" id="submitBtn" />
 
         </form>
 
         <textarea id="convertedText" name="convertedText" rows="15" cols="50"></textarea>
 
-        <input type="button" value="Copy to Clipboard" id="copyBtn" />
+        <input type="button" value="Copy to Clipboard" id="copyBtn" disabled />
 
     </main>
     <script src="converter.js"></script>

@@ -86,7 +86,7 @@ input[type="radio"]:checked + label {
     color: white;
 }
 
-#submitBtn, #copyBtn {
+#submitBtn, #copyBtn, #clearBtn {
     margin-top: 15px;
     padding: 15px 35px; 
     color: #3a3a3a; 
@@ -94,13 +94,16 @@ input[type="radio"]:checked + label {
     border: 1px solid #3a3a3a; 
     transition: 0.5s;
 }
-#submitBtn:hover, #copyBtn:hover {
+
+#clearBtn {background-color: lightcoral;}
+
+#submitBtn:hover, #copyBtn:hover, #clearBtn:hover {
     color: #fff;
     background-color: #3a3a3a;
     cursor: pointer;
 }
 
-#copyBtn:disabled {
+#copyBtn:disabled, #clearBtn:disabled {
     color: slategray;
     background-color: lightgray;
     cursor: not-allowed;
